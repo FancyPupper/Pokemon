@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Component} from 'react';
 import { getAllPokemon, getPokemon } from './services/pokemon';
 import Card from './components/Card';
 import Navbar from './components/Navbar';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, useParams } from "react-router-dom";
 
 
 function App() {
@@ -20,13 +20,11 @@ const Home = () => {
   return(
     <Router>
       <div>
-      <Link to="/detail">Detalle</Link>
         <Switch>
-          <Route path='/'>
+          <Route exact path='/'>
             <Catalog/>
           </Route>
-          <Route path='/detail'>
-            <Detail/>
+          <Route exact path='/detail/:id' component={Detail}>
           </Route>
         </Switch>
       </div> 
@@ -36,9 +34,9 @@ const Home = () => {
 
 const Catalog = () => {
   const [ pokemonData, setPokemonData] = useState([]);
-  const [nextUrl, setNextUrl] = useState('');
-  const [prevUrl, setPrevUrl] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [ nextUrl, setNextUrl] = useState('');
+  const [ prevUrl, setPrevUrl] = useState('');
+  const [ loading, setLoading] = useState(true);
   const initialUrl = 'https://pokeapi.co/api/v2/pokemon'
 
   useEffect(() => {
@@ -111,12 +109,15 @@ const Catalog = () => {
   </div>  
   ); 
 };
-const Detail = () => {
-  return(
+
+function Detail(props) {
+  let {id} = useParams();
+  return (
     <div>
-      Un detalle
+      <h1>Detalle pokemon : {id}</h1>
+      <Link to="/"> volver</Link>
     </div>
-  )
+  );
 }
 
 export default App;
