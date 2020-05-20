@@ -3,8 +3,38 @@ import { getAllPokemon, getPokemon } from './services/pokemon';
 import Card from './components/Card';
 import Navbar from './components/Navbar';
 import './App.css';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
 
 function App() {
+  return(
+    <div>
+      <Navbar></Navbar>
+      <Home></Home>
+    </div>
+  )
+  
+};
+
+const Home = () => {
+  return(
+    <Router>
+      <div>
+      <Link to="/detail">Detalle</Link>
+        <Switch>
+          <Route path='/'>
+            <Catalog/>
+          </Route>
+          <Route path='/detail'>
+            <Detail/>
+          </Route>
+        </Switch>
+      </div> 
+    </Router>
+  ) 
+};
+
+const Catalog = () => {
   const [ pokemonData, setPokemonData] = useState([]);
   const [nextUrl, setNextUrl] = useState('');
   const [prevUrl, setPrevUrl] = useState('');
@@ -54,35 +84,39 @@ function App() {
   };
 
   console.log(pokemonData);
-  return (
+  return(
     <div>
-      { 
-      loading ? 
-        <>
-        <Navbar/>
-        <h1>Loading ...</h1> 
-        </>
-        : (
-        <>
-        <Navbar/>
-        <div className="btn">
-          <button onClick={prev}>Prev</button>
-          <button onClick={next}>Next</button>
-        </div>
-        <div className="gridContainer">
-          {pokemonData.map((pokemon, i) => {
-            return <Card key={i} pokemon={pokemon}/>
-          })}
-        </div>
-        <div className="btn">
-          <button onClick={prev}>Prev</button>
-          <button onClick={next}>Next</button>
-        </div>  
-        </>
-      )
-      }
+    { loading ? 
+    <> 
+    <h1>Loading ...</h1> 
+    </>
+    :(
+    <>
+      <div className="btn">
+        <button onClick={prev}>Prev</button>
+        <button onClick={next}>Next</button>
+      </div>
+      <div className="gridContainer" onClick={e => console.log("Clicked")}>
+        {pokemonData.map((pokemon, i) => {
+          return <Card key={i} pokemon={pokemon}/>
+        })}
+      </div>
+      <div className="btn">
+        <button onClick={prev}>Prev</button>
+        <button onClick={next}>Next</button>
+      </div>  
+    </>
+    )
+    }
+  </div>  
+  ); 
+};
+const Detail = () => {
+  return(
+    <div>
+      Un detalle
     </div>
-  );
+  )
 }
 
 export default App;
