@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
 import pokemonType from '../../helpers/pokemonTypes'
-import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import { BrowserRouter as Link} from "react-router-dom";
 
 function Card({ pokemon }){
     return (
@@ -32,6 +32,7 @@ function Card({ pokemon }){
                     <div>
                         <Link to={`/detail/${pokemon.id}`}> Click to detail</Link>
                     </div>
+                    
                 </div>
             </div>
         </div>

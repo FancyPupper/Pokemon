@@ -17,3 +17,7 @@ export async function getPokemon(url){
             })
     })
 }
+
+export async function searchPokemon(pokemonName){
+    
+}
