@@ -9,9 +9,12 @@ import {useState, useEffect} from 'react';
 function Card({ pokemon }){
 
     const [show, setShow] = useState(false);
+    const [show1, setShow1] = useState(false);
 
     const handleClose = () => setShow(false);
+    const handleClose1 = () => setShow1(false);
     const handleShow = () => setShow(true);
+    const handleShow1 = () => setShow1(true);
 
     return (
         <div className="Card">
@@ -50,6 +53,9 @@ function Card({ pokemon }){
                 <Button variant="primary" onClick={handleShow}>
                 Full sprites!
                 </Button>
+                <Button variant="primary" onClick={handleShow1}>
+                View detail
+                </Button>
             </div>
             
 
@@ -71,6 +77,25 @@ function Card({ pokemon }){
                 </Button>
             </Modal.Footer>
             </Modal>
+
+            <Modal show={show1} onHide={handleClose1} size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+             centered>
+            <Modal.Header closeButton>
+            <Modal.Title><p className="Card_name">{pokemon.name}</p></Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <p>Stats</p>
+                <p></p>
+                
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose1}>
+                Close
+                </Button>
+            </Modal.Footer>
+            </Modal>
+
             </>
         </div>
 
