@@ -9,7 +9,8 @@ function Catalog() {
     const [ nextUrl, setNextUrl] = useState('');
     const [ prevUrl, setPrevUrl] = useState('');
     const [ loading, setLoading] = useState(true);
-    const initialUrl = 'https://pokeapi.co/api/v2/pokemon'
+    const initialUrl = 'https://pokeapi.co/api/v2/pokemon';
+    const selectedCard = 0;
   
     useEffect(() => {
       async function fetchData() {
@@ -40,7 +41,14 @@ function Catalog() {
       setPrevUrl(data.previous);
       setLoading(false);
     }
-  
+    
+    const getDetail = async (i) => {
+      localStorage.setItem("selectedCard", i);
+      console.log("SELECTED CARD : " + localStorage.selectedCard);
+      //this.props.history.push(`/Detail/${i}`);
+
+    ;}
+    
   
     const loadingPokemon = async (data) => {
       let _pokemonData = await Promise.all(
@@ -51,8 +59,9 @@ function Catalog() {
       );
   
       setPokemonData(_pokemonData);
+
     };
-  
+
     console.log(pokemonData);
     return(
       <div>
@@ -66,9 +75,9 @@ function Catalog() {
           <button onClick={prev}>Prev</button>
           <button onClick={next}>Next</button>
         </div>
-        <div className="gridContainer" onClick={e => console.log("Clicked")}>
+        <div className="gridContainer">
           {pokemonData.map((pokemon, i) => {
-            return <Card key={i} pokemon={pokemon}/>
+            return <div onClick={() => getDetail(i)}><Card key={i} pokemon={pokemon}/></div>
           })}
         </div>
         <div className="btn">
