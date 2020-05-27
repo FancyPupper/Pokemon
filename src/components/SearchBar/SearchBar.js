@@ -22,8 +22,8 @@ function SearchBar() {
 
     
     return (
-        <div className="row m-5">
-            <div className="col">
+        <div className="row m-3 auto-mx">
+            <div className="col auto-mx">
                 <form>
                     <input type="text" className="form-control" value={typedText} onChange={search} placeholder="search a Pokemon" />
                     <button onClick={showResults} >Search</button>
